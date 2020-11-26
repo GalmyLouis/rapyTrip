@@ -1,6 +1,6 @@
 # rapyTrip
 
-Rapy Trip es una app que permite ver en tiempo real los transporte publicos y las rutas que estos recorren.
+Rapy Trip is an app that shows in real time the buses and its correspondent routes.
 
 ## Development
 

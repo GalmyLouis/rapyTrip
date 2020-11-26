@@ -8,6 +8,7 @@
         Rapy Trip
     </author>
     <hook type="before_build" src="build.bat" />
+    <hook type="before_run" src="build.bat" />
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

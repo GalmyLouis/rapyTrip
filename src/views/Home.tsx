@@ -38,18 +38,9 @@ class Home extends React.Component<IProps, IState> {
 
 		navigator.geolocation.getCurrentPosition(({ coords }) => {
 			
-			console.log(coords)
-			var coords = coords;
-
-			console.log(coords, "yola")
-
 			var CarMarker = icon({
 				iconUrl: 'car.svg',
 				iconSize: [38, 95], // size of the icon
-				shadowSize: [50, 64], // size of the shadow
-				iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-				shadowAnchor: [4, 62],  // the same for the shadow
-				popupAnchor: [-3, -76]
 			})
 
 
@@ -68,7 +59,6 @@ class Home extends React.Component<IProps, IState> {
 			var car2 = marker([coords.latitude, coords.longitude], { icon: CarMarker }).addTo(Map)
 
 			setInterval(() => {
-				console.table([lat, long])
 				// lat += 0.0005;
 				long += 0.0005;
 				car2.setLatLng([lat, long])

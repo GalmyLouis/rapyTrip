@@ -7,12 +7,18 @@ import {
 	IonImg,
 	IonAvatar,
 	IonLabel,
+	IonMenuButton,
+	IonHeader,
+	IonRippleEffect,
+	IonIcon,
 } from "@ionic/react";
 
 import "./Style.css";
 
 import "leaflet/dist/leaflet.css";
 import { map, tileLayer, marker, icon } from "leaflet";
+
+import { auth } from "../firebase";
 
 interface IProps { }
 
@@ -22,70 +28,110 @@ interface IState {
 }
 
 class Home extends React.Component<IProps, IState> {
+	mapLoaded: boolean;
 
 	constructor(props: any) {
 		super(props);
+
+		this.mapLoaded = false;
 
 		this.state = {
 			UserName: "Richard Jimenez",
 			avatar: "https://thispersondoesnotexist.com/image",
 		};
+
+		this.auth();
+	}
+
+	auth() {
+		const unsub = auth.onAuthStateChanged((user) => {
+
+			if (user) {
+				console.log(user)
+				
+			} else {
+				unsub();
+				location.href = '#/login'
+			}
+
+		});
 	}
 
 	loadMap() {
+		var mapHTMLEL = document.querySelector("#map");
 
-		var coords: any;
+		console.log(mapHTMLEL)
 
-		navigator.geolocation.getCurrentPosition(({ coords }) => {
-			
-			var CarMarker = icon({
-				iconUrl: 'car.svg',
-				iconSize: [38, 95], // size of the icon
-			})
+		if (!this.mapLoaded) {
 
 
-			let lat = coords.latitude;
+			navigator.geolocation.getCurrentPosition(({ coords }) => {
+				var CarMarker = icon({
+					iconUrl: "car.svg",
+					iconSize: [38, 95], // size of the icon
+				});
 
-			let long = coords.longitude;
+				let lat = coords.latitude;
 
-			var Map = map("map").setView([lat, long], 15);
+				let long = coords.longitude;
 
-			tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-				attribution:
-					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-			}).addTo(Map);
+				var Map = map("map").setView([lat, long], 15);
 
-			var car = marker([coords.latitude, coords.longitude], { icon: CarMarker }).addTo(Map)
-			var car2 = marker([coords.latitude, coords.longitude], { icon: CarMarker }).addTo(Map)
+				tileLayer(
+					"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+					{
+						attribution:
+							'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+					}
+				).addTo(Map);
 
-			setInterval(() => {
-				// lat += 0.0005;
-				long += 0.0005;
-				car2.setLatLng([lat, long])
-				// car.remove()
-			}, 1000)
-		})
+				var car = marker([coords.latitude, coords.longitude], {
+					icon: CarMarker,
+				}).addTo(Map);
+				var car2 = marker([coords.latitude, coords.longitude], {
+					icon: CarMarker,
+				}).addTo(Map);
+
+				setInterval(() => {
+					// lat += 0.0005;
+					long += 0.0005;
+					car2.setLatLng([lat, long]);
+					// car.remove()
+				}, 1000);
+			});
+
+			this.mapLoaded = true;
+
+			return "";
+		}
 	}
 
 	render() {
-		setTimeout(this.loadMap, 500);
-
 		return (
 			<>
 				<IonMenu contentId="main">
-					<IonItem>
-						<IonAvatar>
-							<IonImg src={this.state.avatar} />
-						</IonAvatar>
+					<IonHeader>
+						<IonItem>
+							<IonAvatar>
+								<IonImg src={this.state.avatar} />
+							</IonAvatar>
 
-						<IonLabel>{this.state.UserName}</IonLabel>
-					</IonItem>
+							<IonLabel>{this.state.UserName}</IonLabel>
+						</IonItem>
+					</IonHeader>
 
-					<IonItemDivider />
+					<IonContent>
+						<IonItem className="ion-activatable ripple-parent">
+							<IonLabel>Become a Driver</IonLabel>
+							<IonRippleEffect />
+						</IonItem>
+					</IonContent>
 				</IonMenu>
 
 				<IonContent id="main">
-					<div id="map"></div>
+					<div id="map">
+						{this.loadMap()}
+					</div>
 				</IonContent>
 			</>
 		);

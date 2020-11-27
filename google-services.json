@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "852496412611",
+    "firebase_url": "https://rapytrip.firebaseio.com",
+    "project_id": "rapytrip",
+    "storage_bucket": "rapytrip.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852496412611:android:4ba5dede5e8d9921c2d776",
+        "android_client_info": {
+          "package_name": "com.rapitrip.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852496412611-8829539eehfnhddlf7pq54bt345l0a9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoWeAiypFa0YXPQPYQm8VFmeApCIhWXZY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852496412611-8829539eehfnhddlf7pq54bt345l0a9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

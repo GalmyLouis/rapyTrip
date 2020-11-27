@@ -1,4 +1,10 @@
-
 #map{
+	height: 100%;
+}
+
+#loginBox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	height: 100%;
 }

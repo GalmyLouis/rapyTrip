@@ -1,52 +1,68 @@
-import React from 'react';
-import { auth, fire } from '../firebase';
-import { IonContent, IonButton, isPlatform } from '@ionic/react';
-import { GooglePlus } from '@ionic-native/google-plus';
-import './Style.css';
+import React, { useRef, useState } from "react";
+import { auth, fire } from "../firebase";
+import {
+	IonContent,
+	IonButton,
+	isPlatform,
+	IonItem,
+	IonInput,
+	IonLabel,
+} from "@ionic/react";
+import { GooglePlus } from "@ionic-native/google-plus";
+import "./Style.css";
 
-(window as any).fire = fire;
-(window as any).auth = auth;
-(window as any).google = GooglePlus;
-
-function signIn() {
-	const googleProv = new fire.auth.GoogleAuthProvider()
-	auth.signInWithPopup(googleProv).then(res => {
-		// console.log(res)
-
-		location.href = '#/';
-	})
-}
-
-const googlePlusLogin = () => {
-
-	if (isPlatform("mobile")) {
-
-
-		GooglePlus.login({
-			'scopes': 'profile email ',
-			'webClientId': '55660796852-b95fk8jovsulvd8pu5tpngma0j137eh2.apps.googleusercontent.com',
-			'offline': true
-		}).then(cred => {
-			console.log(cred)
-		}).catch(err => {
-			console.log(err)
-		})
-
+async function Login(email: string, pwd: string) {
+	try {
+		await auth.signInWithEmailAndPassword(email, pwd);
+		location.href = '/';
+	}
+	catch (err) {
+		alert(err)
 	}
 }
 
-(window as any).login = googlePlusLogin
+const SignUp = async (email: string, pwd: string) => {
+	try {
+		await auth.createUserWithEmailAndPassword(email,pwd);
+		location.href = '/';
+	} catch (err) {
+		alert(err);
+	}
+};
 
-const Login: React.FC = props => {
+const LoginForm: React.FC = (props) => {
+	let [email, setEmail] = useState("");
+
+	let [pwd, setPwd] = useState("");
+
 	return (
 		<IonContent>
 			<div id="loginBox">
-				<IonButton color="primary" onClick={signIn}>
-					Sign In
-				</IonButton>
+				<div>
+					<IonItem>
+						<IonLabel position="floating">Email:</IonLabel>
+						<IonInput
+							onKeyUp={(p) => setEmail((p.target as any).value)}
+						/>
+					</IonItem>
+					<IonItem>
+						<IonLabel position="floating">Password</IonLabel>
+						<IonInput
+							type="password"
+							onKeyUp={(p) => setPwd((p.target as any).value)}
+						/>
+					</IonItem>
+					<IonButton color="primary" onClick={() => Login(email, pwd)}>Login</IonButton>
+					<IonButton
+						color="danger"
+						onClick={() => SignUp(email, pwd)}
+					>
+						Sign Up
+					</IonButton>
+				</div>
 			</div>
 		</IonContent>
-	)
-}
+	);
+};
 
-export default Login;
+export default LoginForm;

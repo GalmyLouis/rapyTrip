@@ -20,7 +20,7 @@ import { map, tileLayer, marker, icon } from "leaflet";
 
 import { auth } from "../firebase";
 
-interface IProps { }
+interface IProps {}
 
 interface IState {
 	avatar: string;
@@ -45,26 +45,21 @@ class Home extends React.Component<IProps, IState> {
 
 	auth() {
 		const unsub = auth.onAuthStateChanged((user) => {
-
 			if (user) {
-				console.log(user)
-				
+				console.log(user);
 			} else {
 				unsub();
-				location.href = '#/login'
+				location.href = "#/login";
 			}
-
 		});
 	}
 
 	loadMap() {
 		var mapHTMLEL = document.querySelector("#map");
 
-		console.log(mapHTMLEL)
+		console.log(mapHTMLEL);
 
 		if (!this.mapLoaded) {
-
-
 			navigator.geolocation.getCurrentPosition(({ coords }) => {
 				var CarMarker = icon({
 					iconUrl: "car.svg",
@@ -121,7 +116,10 @@ class Home extends React.Component<IProps, IState> {
 					</IonHeader>
 
 					<IonContent>
-						<IonItem className="ion-activatable ripple-parent">
+						<IonItem
+							onClick={(_) => (location.href = "#/driver")}
+							className="ion-activatable ripple-parent"
+						>
 							<IonLabel>Become a Driver</IonLabel>
 							<IonRippleEffect />
 						</IonItem>
@@ -129,9 +127,7 @@ class Home extends React.Component<IProps, IState> {
 				</IonMenu>
 
 				<IonContent id="main">
-					<div id="map">
-						{this.loadMap()}
-					</div>
+					<div id="map">{this.loadMap()}</div>
 				</IonContent>
 			</>
 		);

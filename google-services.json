@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:852496412611:android:4ba5dede5e8d9921c2d776",
+        "mobilesdk_app_id": "1:852496412611:android:b13cb229d1395a18c2d776",
         "android_client_info": {
-          "package_name": "com.rapitrip.app"
+          "package_name": "com.rapytrip.app"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "852496412611-874a1g3q1ccis0hu7ftuvhscgotln3un.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rapytrip.app",
+            "certificate_hash": "f275af4896f650a9a028fa2a1ed4ae3bbd43f0e0"
+          }
+        },
         {
           "client_id": "852496412611-8829539eehfnhddlf7pq54bt345l0a9k.apps.googleusercontent.com",
           "client_type": 3

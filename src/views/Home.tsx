@@ -19,6 +19,7 @@ import "leaflet/dist/leaflet.css";
 import { map, tileLayer, marker, icon } from "leaflet";
 
 import { auth } from "../firebase";
+import Menu from '../components/Menu';
 
 interface IProps {}
 
@@ -104,27 +105,7 @@ class Home extends React.Component<IProps, IState> {
 	render() {
 		return (
 			<>
-				<IonMenu contentId="main">
-					<IonHeader>
-						<IonItem>
-							<IonAvatar>
-								<IonImg src={this.state.avatar} />
-							</IonAvatar>
-
-							<IonLabel>{this.state.UserName}</IonLabel>
-						</IonItem>
-					</IonHeader>
-
-					<IonContent>
-						<IonItem
-							onClick={(_) => (location.href = "#/driver")}
-							className="ion-activatable ripple-parent"
-						>
-							<IonLabel>Become a Driver</IonLabel>
-							<IonRippleEffect />
-						</IonItem>
-					</IonContent>
-				</IonMenu>
+				<Menu UserName={this.state.UserName} Avatar={this.state.avatar} />
 
 				<IonContent id="main">
 					<div id="map">{this.loadMap()}</div>

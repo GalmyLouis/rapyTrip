@@ -35,7 +35,7 @@ const login = async () => {
 	try {
 		const GoogleProv = new fire.auth.GoogleAuthProvider();
 		await auth.signInWithPopup(GoogleProv);
-		location.href = '#/home';
+		location.href = '#/';
 	} catch (err) {
 		alert(err)
 	}
@@ -53,7 +53,7 @@ const GoogleLogin = async () => {
 
 		await auth.signInWithCredential(fire.auth.GoogleAuthProvider.credential(GooglePlusIdToken.idToken))
 
-		location.href = '#/home';
+		location.href = '#/';
 	}
 	catch (err) {
 		alert("Error at Login")

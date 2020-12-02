@@ -24,8 +24,8 @@ import Menu from '../components/Menu';
 interface IProps { }
 
 interface IState {
-	avatar: any;
-	UserName: any;
+	avatar: string;
+	UserName: string;
 }
 
 class Home extends React.Component<IProps, IState> {
@@ -48,7 +48,7 @@ class Home extends React.Component<IProps, IState> {
 		const unsub = auth.onAuthStateChanged((user) => {
 			if (user) {
 				console.log(user);
-				this.setState({ UserName: user.displayName, avatar: user.photoURL })
+				this.setState({ UserName: (user.displayName as any), avatar: (user.photoURL as any) })
 			} else {
 				unsub();
 				location.href = "#/login";
@@ -104,12 +104,14 @@ class Home extends React.Component<IProps, IState> {
 	}
 
 	render() {
+
 		return (
 			<>
 				<Menu UserName={this.state.UserName} Avatar={this.state.avatar} />
 
 				<IonContent id="main">
-					<div id="map">{this.loadMap()}</div>
+					<div id="map"></div>
+					{this.loadMap()}
 				</IonContent>
 			</>
 		);

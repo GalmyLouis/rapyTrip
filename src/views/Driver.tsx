@@ -18,7 +18,8 @@ const DriverPage: React.FC = (props) => {
 	auth.onAuthStateChanged(user => {
 		if (user) {
 			// console.log(user)
-			setName((user.email as any));
+			setName((user.displayName as any));
+			setAvatar((user.photoURL as any));
 		}
 	})
 

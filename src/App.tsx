@@ -13,7 +13,7 @@ const App: React.FC = () => {
 				<IonRouterOutlet />
 
 				<IonRoute
-					path="/home"
+					path="/"
 					exact
 					render={(p) => {
 						return <Home />;
@@ -36,7 +36,6 @@ const App: React.FC = () => {
 					}}
 				/>
 
-				<Redirect path="/" to="home" exact />
 			</IonReactHashRouter>
 		</IonApp>
 	);

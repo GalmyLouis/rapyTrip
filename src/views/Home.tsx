@@ -21,11 +21,11 @@ import { map, tileLayer, marker, icon } from "leaflet";
 import { auth } from "../firebase";
 import Menu from '../components/Menu';
 
-interface IProps {}
+interface IProps { }
 
 interface IState {
-	avatar: string;
-	UserName: string;
+	avatar: any;
+	UserName: any;
 }
 
 class Home extends React.Component<IProps, IState> {
@@ -37,8 +37,8 @@ class Home extends React.Component<IProps, IState> {
 		this.mapLoaded = false;
 
 		this.state = {
-			UserName: "Richard Jimenez",
-			avatar: "https://thispersondoesnotexist.com/image",
+			UserName: "",
+			avatar: "",
 		};
 
 		this.auth();
@@ -48,6 +48,7 @@ class Home extends React.Component<IProps, IState> {
 		const unsub = auth.onAuthStateChanged((user) => {
 			if (user) {
 				console.log(user);
+				this.setState({ UserName: user.displayName, avatar: user.photoURL })
 			} else {
 				unsub();
 				location.href = "#/login";

@@ -36,7 +36,7 @@ const App: React.FC = () => {
 					}}
 				/>
 
-				{/*<Redirect path="/" to="home" exact />*/}
+				<Redirect path="/" to="home" exact />
 			</IonReactHashRouter>
 		</IonApp>
 	);

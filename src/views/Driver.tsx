@@ -2,10 +2,22 @@ import React, { useState } from 'react';
 import L from 'leaflet';
 import { IonContent } from '@ionic/react';
 import Menu from '../components/Menu';
-import { auth, db } from '../firebase';
-
+import { auth, db, fire } from '../firebase';
 
 const uploadCoords = async (long: number, lat: number, uid: string) => {
+	db.collection('history').add({
+		uid: uid,
+		lat: lat,
+		long: long,
+		timestamp: fire.firestore.Timestamp.now()
+	})
+
+	db.collection('now').doc(uid).set({
+		lat: lat,
+		uid: uid,
+		long: long,
+		timestamp: fire.firestore.Timestamp.now()
+	})
 
 }
 
@@ -15,13 +27,23 @@ const DriverPage: React.FC = (props) => {
 	let [avatar, setAvatar] = useState("https://thispersondoesnotexist.com/image");
 	let [mapLoaded, setMapLoad] = useState(false);
 
+	let uid: string;
+
 	auth.onAuthStateChanged(user => {
 		if (user) {
 			// console.log(user)
 			setName((user.displayName as any));
 			setAvatar((user.photoURL as any));
+
+			uid = user.uid
 		}
 	})
+
+	setInterval(async () => {
+		navigator.geolocation.getCurrentPosition(({ coords }) => {
+			uploadCoords(coords.longitude, coords.latitude, uid)
+		})
+	}, 1000)
 
 	const loadMap = () => {
 		var mapHTMLEL = document.querySelector("#map");

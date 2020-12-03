@@ -171,6 +171,7 @@ class Home extends React.Component<IProps, IState> {
 				<Menu
 					UserName={this.state.UserName}
 					Avatar={this.state.avatar}
+					page="home"
 				/>
 
 				<IonContent id="main">

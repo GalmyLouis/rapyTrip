@@ -13,9 +13,35 @@ import {
 interface IP {
 	UserName: string | null;
 	Avatar: string;
+	page: "home" | "driver";
+}
+
+const GoHome: React.FC = () => {
+	return (
+		<IonItem
+			onClick={(_) => (location.href = "#/")}
+			className="ion-activatable ripple-parent"
+		>
+			<IonLabel>Go Back</IonLabel>
+			<IonRippleEffect />
+		</IonItem>
+	)
+}
+
+const GoDrive: React.FC = () => {
+	return (
+		<IonItem
+			onClick={(_) => (location.href = "#/driver")}
+			className="ion-activatable ripple-parent"
+		>
+			<IonLabel>Become a Driver</IonLabel>
+			<IonRippleEffect />
+		</IonItem>
+	)
 }
 
 const Menu: React.FC<IP> = (props) => {
+
 	return (
 		<>
 			<IonMenu contentId="main">
@@ -30,13 +56,9 @@ const Menu: React.FC<IP> = (props) => {
 				</IonHeader>
 
 				<IonContent>
-					<IonItem
-						onClick={(_) => (location.href = "#/driver")}
-						className="ion-activatable ripple-parent"
-					>
-						<IonLabel>Become a Driver</IonLabel>
-						<IonRippleEffect />
-					</IonItem>
+					
+				{props.page == "home"? <GoDrive /> : <GoHome />}
+
 				</IonContent>
 			</IonMenu>
 		</>

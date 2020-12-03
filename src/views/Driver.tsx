@@ -88,7 +88,7 @@ const DriverPage: React.FC = (props) => {
 
 	return (
 		<>
-			<Menu UserName={name} Avatar={avatar} />
+			<Menu UserName={name} Avatar={avatar} page="driver" />
 			<IonContent id="main">
 				<div id="map"></div>
 				{loadMap()}

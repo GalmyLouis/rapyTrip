@@ -19,3 +19,5 @@ npm start
 ```
 cordova build android
 ```
+
+Galmy
